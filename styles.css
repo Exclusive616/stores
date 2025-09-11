@@ -67,6 +67,15 @@ button.white{
     outline: none;
     transition: 0.2s;
 }
+.cart {
+    margin-right: 20px;
+        margin-right: 20px;
+       text-decoration: none;  
+font-size: 20px;
+font-weight: 600;
+color:black;
+transition: o.3s ease;
+}
 
 #header{
     display: flex;
@@ -309,15 +318,16 @@ right: 10px;
     background-size: cover;
     background-position: center;
     padding: 30px;
+   
 }
 
 #sm-banner .banner-box2{
-    background-image: url(image/bannerimg/ban4.jpeg);}
+    background-image: url(image/bannerimg/holdb.png);}
     
 #sm-banner h4{
     font-size: 20px;
     font-weight: 300;
-    color: white;
+    color: #cf1a48;
 }
 #sm-banner h2{
     font-size: 28px;
@@ -327,14 +337,18 @@ right: 10px;
 #sm-banner span{
     font-size: 14px;
     font-weight: 500;
-    color: white;
+    color: #000000;
     padding-bottom: 15px;
 }
 #sm-banner .banner-box:hover button{
-background-color: #088178;
+background-color: #854b57;
 border: 1px solid #088178;
 }
 
+#sm-banner .banner-box button{
+background-color: #088178;
+
+}
 #banner3{
     display: flex;
 justify-content: space-between;
