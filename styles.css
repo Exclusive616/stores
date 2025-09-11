@@ -60,7 +60,6 @@ button.white{
     font-weight:600 ;
     padding:11px 18px ;
     background-color: transparent;
-
     cursor: pointer;
     border: 1px solid white;
     color:#000;
@@ -122,8 +121,8 @@ left:20px;
 }
 
 #mobile{
-    display:none;
     align-items: center;
+    color: black;
 }
 
 #close{
