@@ -1190,18 +1190,11 @@ margin-bottom: 20px;
 
 
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f9f9f9;
-}
 
-header {
-  background: #fff;
-  padding: 1rem;
-  border-bottom: 1px solid #ddd;
-}
 
+nav {
+    text-align: center;
+}
 nav a {
   margin-right: 1rem;
   text-decoration: none;
@@ -1210,7 +1203,9 @@ nav a {
 
 .products {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+
 }
 
 .product {
@@ -1218,6 +1213,8 @@ nav a {
   padding: 1rem;
   background: white;
   width: 200px;
+justify-content: center;
+ 
 }
 
 button {
@@ -1227,3 +1224,4 @@ button {
   padding: 0.5rem 1rem;
   cursor: pointer;
 }
+h1{text-align: center;}
