@@ -3,9 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Exclusive Store - Checkout</title>
+  <title>Exclusive Store</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="https://js.paystack.co/v1/inline.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+ <section id="header">
+       <a href="#"><img src="image/logo.button/ex.png"width="100" height="70" alt="" class="logo"></a>
+        <div>
+          <ul id="navbar">
+            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="about.html">About</a></li>
+             <li><a href="contact.html">Contact</a></li>
+            <li id="ig-bag"><a href="cart2.html"><i class="fa fa-shopping-bag"></i></a></li>
+            <li><a href="#" id="close"><i class="fa fa-times"></i></a></li>
+           </ul>
+        </div>
+    <div id="mobile">
+        <a href="cart2.html"><i class="fa fa-shopping-cart cart"></i></a>
+       <i id="bar"class="fa-solid fa-bars"></i>
+        </div>
+  </section>
   <style>
     body { font-family: Arial, sans-serif; background:#f8f8f8; margin:0; }
     .checkout-container {
@@ -62,20 +82,6 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <section id="header">
-    <a href="index.html"><img src="image/logo.button/ex.png" width="100" height="70" alt="logo" class="logo"></a>
-    <div>
-      <ul id="navbar">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
-      </ul>
-    </div>
-  </section>
 
   <!-- Checkout Section -->
   <section class="checkout-container">
@@ -156,5 +162,6 @@
 
     updateCartCount();
   </script>
+    <script src="script.js"></script>
 </body>
 </html>
