@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exclusive Store - Cart</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+  <!-- Header -->
+  <section id="header">
+    <a href="#"><img src="image/logo.button/ex.png" width="100" height="70" alt="logo" class="logo"></a>
+    <div>
+      <ul id="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+        <li><a href="#" id="close"><i class="fa fa-times"></i></a></li>
+      </ul>
+    </div>
+    <div id="mobile">
+      <a href="cart.html"><i class="fa fa-shopping-cart cart"></i></a>
+      <i id="bar" class="fa-solid fa-bars"></i>
+    </div>
+  </section>
+
+  <!-- Cart Header -->
+  <section id="page-header" class="cart-header">
+    <h2>#Cart</h2>
+    <p>Add your coupon code & SAVE up to 70%</p>
+  </section>
+
+  <!-- Cart Section -->
+  <section id="cart-add" class="section-p1">
+    <div class="cart">
+      <h2>Your Cart</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th><th>Price</th><th>Quantity</th><th>Subtotal</th><th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="cart-body"></tbody>
+      </table>
+      <div style="text-align:center; margin-top:12px;">
+        <strong>Total: $<span id="cart-total">0.00</span></strong>
+      </div>
+      <div class="actions">
+        <button id="clear-cart">Clear Cart</button>
+        <a href="chekout2.html"><button id="checkout">Proceed to Checkout</button></a>
+      </div>
+    </div>
+
+    <div id="coupon">
+      <h3>Apply coupon</h3>
+      <div>
+        <input type="text" placeholder="Enter Your Coupon">
+        <button class="normal">Apply</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="section-p1">
+    <div class="col">
+      <a href="#"><img src="image/logo.button/ex.png" width="100" height="70" alt="logo" class="logo"></a>
+      <h4>Contact</h4>
+      <p><strong>Address:</strong> 567 Orisunmibare Street Odo-owa</p>
+      <p><strong>Phone:</strong> +234 9154646879</p>
+      <p><strong>Hours:</strong> 10:00 - 18:00, Mon - Sat</p>
+      <div class="follow">
+        <h4>Follow Us</h4>
+        <div class="icon">
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-x"></i>
+          <i class="fab fa-instagram"></i>
+          <i class="fab fa-youtube"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <h4>About</h4>
+      <a href="#">About us</a>
+      <a href="#">Delivery Information</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Condition</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class="col">
+      <h4>My Accounts</h4>
+      <a href="#">Sign In</a>
+      <a href="#">View Cart</a>
+      <a href="#">My Wishlist</a>
+      <a href="#">Track My Order</a>
+      <a href="#">Help</a>
+    </div>
+    <div class="col install">
+      <h4>Install App</h4>
+      <p>From App Store or Google Play</p>
+      <div class="row">
+        <img src="image/logo.button/appl.png">
+        <img src="image/logo.button/google.png">
+      </div>
+      <p>Secured Payment Gateways</p>
+      <img src="image/logo.button/visa.png" width="75%" height="50px" alt="">
+    </div>
+    <div class="copyright">
+      © 2025, Folorunsho Idowu Oluwole
+    </div>
+  </footer>
+  <style>
+        header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#2b8a3e;
+      color:white;
+      padding:12px 20px;
+    }
+    header h1 { margin:0; font-size:20px; }
+    .cart-link {
+      position:relative;
+      text-decoration:none;
+      color:white;
+      font-weight:bold;
+    }
+    .cart-count {
+      position:absolute;
+      top:-8px;
+      right:-12px;
+      background:red;
+      color:white;
+      font-size:12px;
+      font-weight:bold;
+      border-radius:50%;
+      width:20px;
+      height:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .products, .cart { max-width: 900px; margin: 0 auto 20px; }
+    .product { margin-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    .qty-input { width: 60px; text-align: center; }
+    button { cursor: pointer; padding: 6px 10px; }
+    .actions { display:flex; gap:10px; justify-content:center; margin-top:12px; }
+    #checkout { background: #2b8a3e; color: white; border: none; padding:8px 12px; }
+    #clear-cart { background: #c0392b; color: white; border: none; padding:8px 12px; }
+    #view-cart { background:#0077cc; color:#fff; border:none; padding:8px 12px; }
+</style>
+
+  <!-- Cart Script -->
+  <script>
+    const CART_KEY = "cartItems";
+    let cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+
+    function formatMoney(cents){ return (cents/100).toFixed(2); }
+    function priceToCents(price){ return Math.round(Number(price)*100); }
+
+    function saveCart(){
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function calculateTotal(){
+      const totalCents = cart.reduce((sum,i)=> sum + priceToCents(i.price)*i.quantity,0);
+      return formatMoney(totalCents);
+    }
+
+    function updateCartCount(){
+      const badge = document.getElementById("cart-count");
+      if(!badge) return;
+      const totalItems = cart.reduce((sum,i)=> sum+i.quantity,0);
+      badge.textContent = totalItems;
+    }
+
+    function renderCart(){
+      const tbody=document.getElementById("cart-body");
+      tbody.innerHTML="";
+      cart.forEach(item=>{
+        const subtotal = priceToCents(item.price)*item.quantity;
+        const tr=document.createElement("tr");
+        tr.dataset.id=item.id;
+        tr.innerHTML=`
+          <td>${item.name}</td>
+          <td>$${Number(item.price).toFixed(2)}</td>
+          <td>
+            <button class="qty-decrease">-</button>
+            <input class="qty-input" type="number" min="1" value="${item.quantity}">
+            <button class="qty-increase">+</button>
+          </td>
+          <td>$${formatMoney(subtotal)}</td>
+          <td><button class="remove-row">Remove</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      document.getElementById("cart-total").textContent=calculateTotal();
+      saveCart();
+    }
+
+    function removeById(id){ cart = cart.filter(i=>i.id!==id); renderCart(); }
+    function changeQuantityById(id,delta){
+      const item=cart.find(i=>i.id===id);
+      if(!item)return;
+      item.quantity+=delta;
+      if(item.quantity<=0){ removeById(id); }
+      else { renderCart(); }
+    }
+    function setQuantityById(id,qty){
+      const item=cart.find(i=>i.id===id);
+      if(!item)return;
+      item.quantity=Math.max(1,Math.floor(Number(qty)||1));
+      renderCart();
+    }
+
+    document.addEventListener("DOMContentLoaded",()=>{
+      document.getElementById("cart-body").addEventListener("click",e=>{
+        const tr=e.target.closest("tr"); if(!tr)return;
+        const id=tr.dataset.id;
+        if(e.target.matches(".qty-increase")) changeQuantityById(id,1);
+        if(e.target.matches(".qty-decrease")) changeQuantityById(id,-1);
+        if(e.target.matches(".remove-row")) removeById(id);
+      });
+
+      document.getElementById("cart-body").addEventListener("input",e=>{
+        if(e.target.matches(".qty-input")){
+          const id=e.target.closest("tr").dataset.id;
+          setQuantityById(id,parseInt(e.target.value,10));
+        }
+      });
+
+      document.getElementById("clear-cart").addEventListener("click",()=>{
+        if(cart.length && confirm("Clear all items?")){ cart=[]; renderCart(); }
+      });
+
+      document.getElementById("checkout").addEventListener("click",()=>{
+        if(!cart.length){ alert("Your cart is empty."); return; }
+        localStorage.setItem("cartTotal",calculateTotal());
+        window.location.href="checkout2.html"; // ✅ go to checkout2.html
+      });
+
+      renderCart();
+      updateCartCount();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f6f9;
+      font-family: Arial, sans-serif;
+    }
+    .success-box {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .success-box h1 {
+      color: #088178;
+    }
+    .success-box p {
+      margin-top: 10px;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #088178;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+    .btn:hover {
+      background: #066b62;
+    }
+  </style>
+</head>
+<body>
+  <div class="success-box">
+    <h1>🎉 Payment Successful!</h1>
+    <p>Thank you for your order. Your payment reference is:</p>
+    <p id="ref"></p>
+    <a class="btn" href="index.html">Continue Shopping</a>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("ref").textContent = params.get("ref");
+  </script>
+</body>
+</html>

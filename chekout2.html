@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exclusive Store - Checkout</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f8f8f8; margin:0; }
+    .checkout-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+      padding: 30px;
+      max-width: 1100px;
+      margin: 30px auto;
+    }
+    .checkout-form, .order-summary {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .checkout-form h3, .order-summary h3 {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+      color: #333;
+    }
+    .checkout-form label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    .checkout-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .place-order-btn {
+      background: #088178;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 6px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .place-order-btn:hover {
+      background: #066b62;
+    }
+    .order-summary p {
+      font-size: 18px;
+      margin: 12px 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <section id="header">
+    <a href="index.html"><img src="image/logo.button/ex.png" width="100" height="70" alt="logo" class="logo"></a>
+    <div>
+      <ul id="navbar">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Checkout Section -->
+  <section class="checkout-container">
+    <!-- Billing Form -->
+    <div class="checkout-form">
+      <h3>Billing Details</h3>
+      <form id="checkout-form">
+        <label>Full Name</label>
+        <input type="text" id="fullname" required>
+        <label>Email</label>
+        <input type="email" id="email" required>
+        <label>Phone</label>
+        <input type="tel" id="phone" required>
+        <label>Address</label>
+        <input type="text" id="address" required>
+        <label>City</label>
+        <input type="text" id="city" required>
+        <label>Postal Code</label>
+        <input type="text" id="postal" required>
+      </form>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <p><strong>Total:</strong> ₦<span id="order-total">0.00</span></p>
+      <button class="place-order-btn" id="place-order">Proceed to Payment</button>
+    </div>
+  </section>
+
+  <!-- Script -->
+  <script>
+    const CART_KEY = "cartItems";
+    const total = localStorage.getItem("cartTotal") || "0.00";
+    document.getElementById("order-total").textContent = total;
+
+    function updateCartCount(){
+      const cart = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+      const count = cart.reduce((sum, i) => sum + i.quantity, 0);
+      document.getElementById("cart-count").textContent = count;
+    }
+
+    document.getElementById("place-order").addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const amountInKobo = Math.round(parseFloat(total) * 100);
+      const email = document.getElementById("email").value;
+
+      let handler = PaystackPop.setup({
+        key: "pk_test_c923e85cb6e861815649b99ecb8812024bfa8cb2", 
+        // ✅ replace with your Paystack public key
+        email: email,
+        amount: amountInKobo,
+        currency: "NGN",
+        ref: "EXS-" + Math.floor((Math.random() * 1000000000) + 1),
+        metadata: {
+          custom_fields: [
+            { display_name: "Full Name", variable_name: "fullname", value: document.getElementById("fullname").value },
+            { display_name: "Phone", variable_name: "phone", value: document.getElementById("phone").value },
+            { display_name: "Address", variable_name: "address", value: document.getElementById("address").value },
+            { display_name: "City", variable_name: "city", value: document.getElementById("city").value },
+            { display_name: "Postal Code", variable_name: "postal", value: document.getElementById("postal").value }
+          ]
+        },
+        callback: function(response){
+          alert("✅ Payment successful! Ref: " + response.reference);
+          localStorage.removeItem(CART_KEY);
+          localStorage.removeItem("cartTotal");
+          window.location.href = "index.html";
+        },
+        onClose: function(){
+          alert("❌ Payment window closed. Please try again.");
+        }
+      });
+
+      handler.openIframe();
+    });
+
+    updateCartCount();
+  </script>
+</body>
+</html>

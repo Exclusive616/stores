@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cart View</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background:#f7fbff; }
+    .box { max-width:900px; margin:0 auto; background:#fff; padding:18px; border-radius:6px; box-shadow:0 4px 8px rgba(0,0,0,0.05); }
+    table { width:100%; border-collapse:collapse; margin-top:10px; }
+    th,td { border:1px solid #ddd; padding:8px; text-align:center; }
+    .empty { text-align:center; padding:20px; color:#666; }
+    .actions { text-align:center; margin-top:12px; }
+    button { padding:8px 12px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Live Cart View</h2>
+
+    <div id="cart-container">
+      <table>
+        <thead>
+          <tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th></tr>
+        </thead>
+        <tbody id="cart-view-body"></tbody>
+      </table>
+      <div id="cart-empty" class="empty" style="display:none;">Cart is empty</div>
+      <div style="text-align:right; margin-top:8px;"><strong>Total: $<span id="cart-view-total">0.00</span></strong></div>
+    </div>
+
+    <div class="actions">
+      <button id="open-cart">Open Cart Editor</button>
+      <button id="go-checkout">Go to Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    const CART_KEY = "cartItems";
+    const tbody = document.getElementById("cart-view-body");
+    const totalEl = document.getElementById("cart-view-total");
+    const emptyDiv = document.getElementById("cart-empty");
+
+    function getCart() {
+      return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    }
+
+    function formatMoney(cents) { return (cents / 100).toFixed(2); }
+    function priceToCents(price) { return Math.round(Number(price) * 100); }
+
+    // render function
+    let lastSerialized = null;
+    function render() {
+      const cart = getCart();
+      const serialized = JSON.stringify(cart);
+      if (serialized === lastSerialized) return; // no change
+      lastSerialized = serialized;
+
+      tbody.innerHTML = "";
+      if (!cart.length) {
+        emptyDiv.style.display = "block";
+        totalEl.textContent = "0.00";
+        return;
+      }
+      emptyDiv.style.display = "none";
+
+      let totalCents = 0;
+      cart.forEach(item => {
+        const subCents = priceToCents(item.price) * item.quantity;
+        totalCents += subCents;
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${escapeHtml(item.name)}</td>
+          <td>$${Number(item.price).toFixed(2)}</td>
+          <td>${item.quantity}</td>
+          <td>$${formatMoney(subCents)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      totalEl.textContent = formatMoney(totalCents);
+    }
+
+    // small escape utility
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, s =>
+        ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[s]);
+    }
+
+    // storage event (fired in other tabs/windows)
+    window.addEventListener("storage", (e) => {
+      if (e.key === CART_KEY || e.key === "cartTotal") {
+        render();
+      }
+    });
+
+    // polling fallback (keeps page in sync if storage event not firing)
+    setInterval(render, 700);
+
+    // init
+    render();
+
+    // actions
+    document.getElementById("open-cart").addEventListener("click", () => {
+      window.open("cart.html", "_blank");
+    });
+    document.getElementById("go-checkout").addEventListener("click", () => {
+      window.location.href = "checkout.html"; // change if your checkout file name different
+    });
+  </script>
+</body>
+</html>

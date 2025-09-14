@@ -85,41 +85,44 @@ function updateCartCount() {
   let el = document.getElementById("cart-count");
   if (el) el.textContent = count;
 }
-
-// Render cart page
-function renderCart() {
-  let cart = getCart();
-  let container = document.getElementById("cart-items");
-  let totalEl = document.getElementById("cart-total");
-
-  if (!container) return;
-
-  container.innerHTML = "";
-  let total = 0;
-
-  if (cart.length === 0) {
-    container.innerHTML = "<p>Your cart is empty.</p>";
+function addToCart(name, price) {
+  const existing = cart.find(i => i.name === name);
+  if (existing) {
+    existing.quantity++;
   } else {
-    cart.forEach(item => {
-      total += item.price * item.qty;
-      container.innerHTML += `
-        <div class="cart-item">
-          <span>${item.name}</span>
-          <span>
-            <button onclick="changeQuantity('${item.id}', -1)">➖</button>
-            ${item.qty}
-            <button onclick="changeQuantity('${item.id}', 1)">➕</button>
-          </span>
-          <span>$${(item.price * item.qty).toFixed(2)}</span>
-          <button onclick="removeFromCart('${item.id}')">🗑 Remove</button>
-        </div>
-      `;
+    cart.push({
+      id: Date.now().toString(),
+      name,
+      price: Number(price),   // ✅ always store as number
+      quantity: 1
     });
   }
-
-  totalEl.textContent = total.toFixed(2);
+  saveCart();
+  renderCart();
 }
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".add-to-cart").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const product = btn.closest(".pro");
+      addToCart(product.dataset.name, product.dataset.price);
+    });
+  });
 
-// Run on every page load
-document.addEventListener("DOMContentLoaded", updateCartCount);
-
+  renderCart();
+  updateCartCount();
+});
+const subtotal = item.price * item.quantity;
+tr.innerHTML = `
+  <td>${item.name}</td>
+  <td>$${item.price.toFixed(2)}</td>
+  <td>
+    <button class="qty-decrease">-</button>
+    <input class="qty-input" type="number" min="1" value="${item.quantity}">
+    <button class="qty-increase">+</button>
+  </td>
+  <td>$${subtotal.toFixed(2)}</td>
+  <td><button class="remove-row">Remove</button></td>
+`;
+function calculateTotal() {
+  return cart.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2);
+}
