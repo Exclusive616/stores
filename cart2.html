@@ -112,51 +112,7 @@
       © 2025, Folorunsho Idowu Oluwole
     </div>
   </footer>
-  <style>
-        header {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background:#2b8a3e;
-      color:white;
-      padding:12px 20px;
-    }
-    header h1 { margin:0; font-size:20px; }
-    .cart-link {
-      position:relative;
-      text-decoration:none;
-      color:white;
-      font-weight:bold;
-    }
-    .cart-count {
-      position:absolute;
-      top:-8px;
-      right:-12px;
-      background:red;
-      color:white;
-      font-size:12px;
-      font-weight:bold;
-      border-radius:50%;
-      width:20px;
-      height:20px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    
-    .products, .cart { max-width: 900px; margin: 0 auto 20px;
-    align-items: center; justify-content: center; }
-    .product { margin-bottom: 10px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-    .qty-input { width: 60px; text-align: center; }
-    button { cursor: pointer; padding: 6px 10px; }
-    .actions { display:flex; gap:10px; justify-content:center; margin-top:12px; }
-    #checkout { background: #2b8a3e; color: white; border: none; padding:8px 12px; }
-    #clear-cart { background: #c0392b; color: white; border: none; padding:8px 12px; }
-    #view-cart { background:#0077cc; color:#fff; border:none; padding:8px 12px; }
-</style>
-
+ 
   <!-- Cart Script -->
   <script>
     const CART_KEY = "cartItems";
@@ -244,7 +200,7 @@
       document.getElementById("checkout").addEventListener("click",()=>{
         if(!cart.length){ alert("Your cart is empty."); return; }
         localStorage.setItem("cartTotal",calculateTotal());
-        window.location.href="checkout2.html"; // ✅ go to checkout2.html
+        window.location.href="checkout2.html"; 
       });
 
       renderCart();
